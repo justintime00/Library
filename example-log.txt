@@ -1,0 +1,6 @@
+//ISBN-13|Year|Author (last name, first)|Title
+978-0812988529|1969|Vonnegut,Kurt|Slaughterhouse-Five
+9780385333849|1999|Vonnegut,Kurt|Slaughterhouse-Five (Dial Press Edition)
+9780440180296|1991|Vonnegut,Kurt|Slaughterhouse-Five (Dell Edition)
+9780684833392|2004|Heller, Joseph|Catch-22 (Simon & Schuster Edition)
+9780316769174|2001|Salinger, J.D.|The Catcher in the Rye (Back Bay Books Edition)

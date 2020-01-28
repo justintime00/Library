@@ -1,0 +1,32 @@
+5 entries read
+% % % Year search: 5 entries found
+% % 978-0812988529|1969|Vonnegut, Kurt|Slaughterhouse-Five
+9780440180296|1991|Vonnegut, Kurt|Slaughterhouse-Five (Dell Edition)
+9780385333849|1999|Vonnegut, Kurt|Slaughterhouse-Five (Dial Press Edition)
+9780316769174|2001|Salinger,  J.D.|The Catcher in the Rye (Back Bay Books Edition)
+9780684833392|2004|Heller,  Joseph|Catch-22 (Simon & Schuster Edition)
+% % 5 log entries appended
+% % 0|978-0812988529|1969|Vonnegut, Kurt|Slaughterhouse-Five
+1|9780440180296|1991|Vonnegut, Kurt|Slaughterhouse-Five (Dell Edition)
+2|9780385333849|1999|Vonnegut, Kurt|Slaughterhouse-Five (Dial Press Edition)
+3|9780316769174|2001|Salinger,  J.D.|The Catcher in the Rye (Back Bay Books Edition)
+4|9780684833392|2004|Heller,  Joseph|Catch-22 (Simon & Schuster Edition)
+% % Moved excerpt list entry 3
+% % Moved excerpt list entry 2
+% Moved excerpt list entry 4
+% Moved excerpt list entry 0
+% % excerpt list sorted
+previous ordering:
+0|9780316769174|2001|Salinger,  J.D.|The Catcher in the Rye (Back Bay Books Edition)
+...
+4|9780440180296|1991|Vonnegut, Kurt|Slaughterhouse-Five (Dell Edition)
+new ordering:
+0|978-0812988529|1969|Vonnegut, Kurt|Slaughterhouse-Five
+...
+4|9780684833392|2004|Heller,  Joseph|Catch-22 (Simon & Schuster Edition)
+% % 0|978-0812988529|1969|Vonnegut, Kurt|Slaughterhouse-Five
+1|9780440180296|1991|Vonnegut, Kurt|Slaughterhouse-Five (Dell Edition)
+2|9780385333849|1999|Vonnegut, Kurt|Slaughterhouse-Five (Dial Press Edition)
+3|9780316769174|2001|Salinger,  J.D.|The Catcher in the Rye (Back Bay Books Edition)
+4|9780684833392|2004|Heller,  Joseph|Catch-22 (Simon & Schuster Edition)
+% % 

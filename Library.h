@@ -72,10 +72,25 @@ struct BookComp {
     std::vector<Book*> &lib;
  };
 
+struct YearComp {
+    YearComp(std::vector<Book*>& masterLib) : lib(masterLib) {}
+    bool operator()(unsigned const& lhs, unsigned const& rhs) {
+        return lib[lhs]->year < rhs;
+    }
+    std::vector<Book*>& lib;
+};
+
+struct YearCompReverse {
+    YearCompReverse(std::vector<Book*>& masterLib) : lib(masterLib) {}
+    bool operator()(unsigned const& lhs, unsigned const& rhs) {
+        return lhs < lib[rhs]->year;
+    }
+    std::vector<Book*>& lib;
+};
+
 class Library {
 public:
-    Library() : searchConducted(false), catSuccess(false), 
-        excerptSorted(false) {}
+    Library() : searchConducted(false), excerptSorted(false) {}
     ~Library() {
         for (auto elt : input) {
             delete elt;
@@ -84,8 +99,6 @@ public:
     void getOptions(int argc, char * argv[]);
     void getInput();
     void yearSearch();
-    void ISBNSearch();
-    void catSearch();
     void keySearch();
     void append();
     void appendResults();
@@ -99,7 +112,6 @@ public:
 
 private:
     std::unordered_map<std::string, std::vector<int>> keyDict;
-    std::unordered_map<std::string, std::vector<int>> authDict;
     std::vector<Book*> input;
     std::vector<int> sortedInput;
     std::vector<int> keyResults;
@@ -107,9 +119,7 @@ private:
     std::string logFileName;
     std::vector<int>::iterator year1It;
     std::vector<int>::iterator year2It;
-    std::string catStr;
     char lastSearch;
     bool searchConducted;
-    bool catSuccess;
     bool excerptSorted;
 };

@@ -1,0 +1,28 @@
+# This is a comment line
+# A year search from 1000 to 2019
+y 1000 | 2019
+
+# Print search results
+g
+
+# Append search results
+r
+
+# Print excerpt list
+p
+
+# Move excerpt entries around
+b 3
+e 5
+e 2
+b 4
+e 0
+
+# Sort excerpt list
+s
+
+# Print excerpt list to check sort
+p
+
+# Quit
+q

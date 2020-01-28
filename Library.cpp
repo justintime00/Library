@@ -13,7 +13,7 @@
 using namespace std;
 
 std::ostream& operator<<(std::ostream& os, Book const& le) {
-    os << le.entryID << "|" << le.ISBNStr << "|" << le.year << "|"
+    os << le.ISBNStr << "|" << le.year << "|"
        << le.authLast << ", " << le.authFirst << "|" << le.title << "\n";
     return os;
 }
@@ -35,7 +35,8 @@ void Library::getInput() {
     unsigned entryID = 0;
     unsigned year;
     char misc;
-    string ISBN, authFirst, authLast, title;
+    string ISBN, authFirst, authLast, title, comment;
+    getline(logFile, comment);
     while (getline(logFile, ISBN, '|')) {
         logFile >> year >> misc;
         getline(logFile, authLast, ',');
@@ -52,10 +53,16 @@ void Library::getInput() {
         input[sortedInput[i]]->sortedID = i;
         string temp = input[sortedInput[i]]->authFirst;
         transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
-        authDict[temp].push_back(sortedInput[i]);
+        if (keyDict[temp].empty()
+            || keyDict[temp].back() != sortedInput[i]) {
+            keyDict[temp].push_back(sortedInput[i]);
+        }
         temp = input[sortedInput[i]]->authLast;
         transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
-        authDict[temp].push_back(sortedInput[i]);
+        if (keyDict[temp].empty()
+            || keyDict[temp].back() != sortedInput[i]) {
+            keyDict[temp].push_back(sortedInput[i]);
+        }
         string keyword = "";
         temp = input[sortedInput[i]]->title;
         for (size_t k = 0; k < temp.size(); ++k) {
@@ -81,7 +88,6 @@ void Library::getInput() {
     return;
 }
 
-
 void Library::yearSearch() {
     searchConducted = true;
     unsigned year1, year2;
@@ -89,54 +95,10 @@ void Library::yearSearch() {
     cin >> year1 >> misc >> year2;
     lastSearch = 't';
     year1It = std::lower_bound(sortedInput.begin(), sortedInput.end(), 
-        year1, TimestampCompLow(input));
+        year1, YearComp(input));
     year2It = std::upper_bound(year1It, sortedInput.end(), 
-        year2, TimestampCompUp(input));
+        year2, YearCompReverse(input));
     cout << "Year search: " << year2It - year1It << " entries found\n";
-}
-
-void Library::matchSearch() {
-    searchConducted = true;
-    string timeStr;
-    getline(cin, timeStr, ' ');
-    getline(cin, timeStr);
-    if (timeStr.length() != 14) {
-        cerr << "Invalid timestamp length!\n";
-        return;
-    }
-    lastSearch = 'm';
-    uint64_t time = 0;
-    for (size_t i = 0; i < timeStr.size(); ++i) {
-        if (timeStr[i] != ':') {
-            time *= 10;
-            time += (timeStr[i] - '0');
-        }
-    }
-    time1It = std::lower_bound(sortedInput.begin(), sortedInput.end(), 
-        time, TimestampCompLow(input));
-    time2It = std::upper_bound(time1It, sortedInput.end(), 
-        time, TimestampCompUp(input));
-    cout << "Timestamp search: " << time2It - time1It << " entries found\n";
-}
-
-void Library::catSearch() {
-    searchConducted = true;
-    lastSearch = 'c';
-    string search;
-    getline(cin, search, ' ');
-    getline(cin, search);
-    transform(search.begin(), search.end(), search.begin(), ::tolower);
-    if (authDict.find(search) != authDict.end()) {
-        catStr = search;
-        catSuccess = true;
-        cout << "Category search: " << authDict[search].size() 
-             << " entries found\n";
-    }
-    else {
-        catSuccess = false;
-        cout << "Category search: 0 entries found\n";
-    }
-    return;
 }
 
 void Library::keySearch() {
@@ -193,11 +155,11 @@ void Library::appendResults() {
     if (!searchConducted) {
         return;
     }
-    if (lastSearch == 't' || lastSearch == 'm') {
-        for (auto it = time1It; it != time2It; ++it) {
+    if (lastSearch == 't') {
+        for (auto it = year1It; it != year2It; ++it) {
             excerptList.push_back(*it);
         }
-        cout << time2It - time1It << " log entries appended\n";
+        cout << year2It - year1It << " log entries appended\n";
         excerptSorted = false;
         return;
     }
@@ -206,14 +168,6 @@ void Library::appendResults() {
             excerptList.push_back(elt);
         }
         cout << keyResults.size() << " log entries appended\n";
-        excerptSorted = false;
-        return;
-    }
-    else if (catSuccess) {
-        for (auto elt : authDict[catStr]) {
-            excerptList.push_back(elt);
-        }
-        cout << authDict[catStr].size() << " log entries appended\n";
         excerptSorted = false;
         return;
     }
@@ -279,7 +233,6 @@ void Library::sortExcerpt() {
                 }
             }
         }
-        
         fPtr = input[excerptList[0]];
         lPtr = input[excerptList[excerptList.size() - 1]];
         cout << "new ordering:\n0|" << *fPtr << "...\n"
@@ -309,20 +262,14 @@ void Library::printResults() {
     if (!searchConducted) {
         return;
     }
-    if (lastSearch == 't' || lastSearch == 'm') {
-        for (auto it = time1It; it != time2It; ++it) {
+    if (lastSearch == 't') {
+        for (auto it = year1It; it != year2It; ++it) {
             cout << *input[*it];
         }
         return;
     }
     else if (lastSearch == 'k') {
         for (auto elt : keyResults) {
-            cout << *input[elt];
-        }
-        return;
-    }
-    else if (catSuccess) {
-        for (auto elt : authDict[catStr]) {
             cout << *input[elt];
         }
         return;

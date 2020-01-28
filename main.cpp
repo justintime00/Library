@@ -18,14 +18,8 @@ int main(int argc, char * argv[]) {
     cout << "% ";
     while (cin >> command && command != 'q') {
         // Search functions (clear search results before search)
-        if (command == 't') {
-            intLog.timeSearch();
-        }
-        else if (command == 'm') {
-            intLog.matchSearch();
-        }
-        else if (command == 'c') {
-            intLog.catSearch();
+        if (command == 'y') {
+            intLog.yearSearch();
         }
         else if (command == 'k') {
             intLog.keySearch();
