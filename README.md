@@ -4,7 +4,7 @@ The command line requires 1 argument, the input log file, and an optional help
 command (-h or --help).
 
 The commands for the interface are as follows:
-/# - A comment line, ignored by the program
+# - A comment line, ignored by the program
 y XXXX | YYYY - A year search between XXXX and YYYY with XXXX < YYYY
 k "  " - A keyword search for one or more words that match titles and/or authors, 
 	(case insensitive)
@@ -16,3 +16,5 @@ d int - Delete entry int from excerpt list
 b int - Move entry int to the beginning of the excerpt list
 e int - Move entry int to the end of the excerpt list
 s - Sort the entry list by year (displays information of list before and after sort)
+
+** Note on complexity: Space is O(n) and sort time is O(n), achieved with bucket sort
